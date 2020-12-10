@@ -1,7 +1,6 @@
-//=============================================================================
+// Copyright 2020 the Polygon Mesh Processing Library developers.
 // Copyright 2020 Astrid Bunge, Philipp Herholz, Misha Kazhdan, Mario Botsch.
-// Distributed under MIT license, see file LICENSE for details.
-//=============================================================================
+// Distributed under a MIT-style license, see LICENSE.txt for details.
 
 #include <pmp/SurfaceMesh.h>
 #include <pmp/algorithms/DifferentialGeometry.h>
@@ -12,12 +11,8 @@
 #include "GeodesicsInHeat.h"
 #include "PolyDiffGeo.h"
 
-//=============================================================================
-
 // to lump or not to lump the mass matrix?
 bool LUMP_MASS_MATRIX = true;
-
-//=============================================================================
 
 using namespace pmp;
 
@@ -258,5 +253,3 @@ int main(int argc, char **argv)
         }
     }
 }
-
-//=============================================================================

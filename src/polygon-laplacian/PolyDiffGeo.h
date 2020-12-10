@@ -1,27 +1,19 @@
-//=============================================================================
+// Copyright 2020 the Polygon Mesh Processing Library developers.
 // Copyright 2020 Astrid Bunge, Philipp Herholz, Misha Kazhdan, Mario Botsch.
-// Distributed under MIT license, see file LICENSE for details.
-//=============================================================================
+// Distributed under a MIT-style license, see LICENSE.txt for details.
 #pragma once
-//=============================================================================
 
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 #include <pmp/SurfaceMesh.h>
 
-//=============================================================================
-
 using namespace pmp;
-
-//=============================================================================
 
 // global setting: whether to clamp cotan negative weights to zero (default: false)
 extern bool clamp_cotan_;
 
 // global settings: whether to lump the mass matrix (default: true)
 extern bool lump_mass_matrix_;
-
-//=============================================================================
 
 // compute (sparse) stiffness matrix for polygonal mesh
 void setup_stiffness_matrix(const SurfaceMesh &mesh,
@@ -81,5 +73,3 @@ void setup_virtual_vertices(SurfaceMesh &mesh);
 // compute the affine weights wrt the polygon vertices to form the virtual vertex
 void compute_virtual_vertex(const Eigen::MatrixXd &poly,
                             Eigen::VectorXd &weights);
-
-//=============================================================================

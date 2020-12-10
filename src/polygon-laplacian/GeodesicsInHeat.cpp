@@ -1,13 +1,10 @@
-//=============================================================================
+// Copyright 2020 the Polygon Mesh Processing Library developers.
 // Copyright 2020 Astrid Bunge, Philipp Herholz, Misha Kazhdan, Mario Botsch.
-// Distributed under MIT license, see file LICENSE for details.
-//=============================================================================
+// Distributed under a MIT-style license, see LICENSE.txt for details.
 
 #include "GeodesicsInHeat.h"
 #include "PolyDiffGeo.h"
 #include <cfloat>
-
-//=============================================================================
 
 GeodesicsInHeat::GeodesicsInHeat(SurfaceMesh &mesh) : mesh_(mesh)
 {
@@ -18,8 +15,6 @@ GeodesicsInHeat::GeodesicsInHeat(SurfaceMesh &mesh) : mesh_(mesh)
 
     setup_virtual_vertices(mesh_);
 }
-
-//-----------------------------------------------------------------------------
 
 GeodesicsInHeat::~GeodesicsInHeat()
 {
@@ -34,8 +29,6 @@ GeodesicsInHeat::~GeodesicsInHeat()
     mesh_.remove_vertex_property(distance_);
 }
 
-//-----------------------------------------------------------------------------
-
 double GeodesicsInHeat::avg_edge_length() const
 {
     double avgLen = 0.;
@@ -45,8 +38,6 @@ double GeodesicsInHeat::avg_edge_length() const
 
     return avgLen / (Scalar)mesh_.n_edges();
 }
-
-//-----------------------------------------------------------------------------
 
 void GeodesicsInHeat::compute_distance_from(Vertex source)
 {
@@ -96,8 +87,6 @@ void GeodesicsInHeat::compute_distance_from(Vertex source)
     }
 }
 
-//-----------------------------------------------------------------------------
-
 void GeodesicsInHeat::precompute()
 {
     Eigen::SparseMatrix<double> S, M, A, M_bar;
@@ -122,8 +111,6 @@ void GeodesicsInHeat::precompute()
     cholA.analyzePattern(A);
     cholA.factorize(A);
 }
-
-//-----------------------------------------------------------------------------
 
 void GeodesicsInHeat::distance_to_texture_coordinates() const
 {
@@ -158,5 +145,3 @@ void GeodesicsInHeat::distance_to_texture_coordinates() const
     if (htex)
         mesh_.remove_halfedge_property(htex);
 }
-
-//=============================================================================

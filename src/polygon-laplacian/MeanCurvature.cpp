@@ -1,30 +1,21 @@
-//=============================================================================
+// Copyright 2020 the Polygon Mesh Processing Library developers.
 // Copyright 2020 Astrid Bunge, Philipp Herholz, Misha Kazhdan, Mario Botsch.
-// Distributed under MIT license, see file LICENSE for details.
-//=============================================================================
+// Distributed under a MIT-style license, see LICENSE.txt for details.
 
 #include "MeanCurvature.h"
 #include "PolyDiffGeo.h"
-
-//=============================================================================
 
 using namespace pmp;
 using SparseMatrix = Eigen::SparseMatrix<double>;
 using Triplet = Eigen::Triplet<double>;
 
-//=============================================================================
-
 Curvature::Curvature(SurfaceMesh &mesh) : mesh_(mesh) {}
-
-//-----------------------------------------------------------------------------
 
 Curvature::~Curvature()
 {
     if (curvatures_)
         mesh_.remove_vertex_property(curvatures_);
 }
-
-//-----------------------------------------------------------------------------
 
 void Curvature::compute()
 {
@@ -61,8 +52,6 @@ void Curvature::compute()
         i++;
     }
 }
-
-//-----------------------------------------------------------------------------
 
 void Curvature::curvature_to_texture_coordinates() const
 {
@@ -107,5 +96,3 @@ void Curvature::curvature_to_texture_coordinates() const
     if (htex)
         mesh_.remove_halfedge_property(htex);
 }
-
-//=============================================================================

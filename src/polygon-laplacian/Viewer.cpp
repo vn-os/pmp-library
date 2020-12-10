@@ -1,7 +1,6 @@
-//=============================================================================
+// Copyright 2020 the Polygon Mesh Processing Library developers.
 // Copyright 2020 Astrid Bunge, Philipp Herholz, Misha Kazhdan, Mario Botsch.
-// Distributed under MIT license, see file LICENSE for details.
-//=============================================================================
+// Distributed under a MIT-style license, see LICENSE.txt for details.
 
 #include "Viewer.h"
 #include "Smoothing.h"
@@ -15,11 +14,7 @@
 #include <imgui.h>
 #include <random>
 
-//=============================================================================
-
 using namespace pmp;
-
-//=============================================================================
 
 bool Viewer::load_mesh(const char *filename)
 {
@@ -263,5 +258,3 @@ void Viewer::mouse(int button, int action, int mods)
         MeshViewer::mouse(button, action, mods);
     }
 }
-
-//=============================================================================

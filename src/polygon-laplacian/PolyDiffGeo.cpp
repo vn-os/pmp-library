@@ -1,13 +1,10 @@
-//=============================================================================
+// Copyright 2020 the Polygon Mesh Processing Library developers.
 // Copyright 2020 Astrid Bunge, Philipp Herholz, Misha Kazhdan, Mario Botsch.
-// Distributed under MIT license, see file LICENSE for details.
-//=============================================================================
+// Distributed under a MIT-style license, see LICENSE.txt for details.
 
 #include "PolyDiffGeo.h"
 #include <pmp/algorithms/DifferentialGeometry.h>
 #include <pmp/algorithms/SurfaceTriangulation.h>
-
-//=============================================================================
 
 using namespace std;
 using namespace pmp;
@@ -15,13 +12,9 @@ using namespace pmp;
 using SparseMatrix = Eigen::SparseMatrix<double>;
 using Triplet = Eigen::Triplet<double>;
 
-//=============================================================================
-
 const double eps = 1e-10;
 bool clamp_cotan_ = false;
 bool lump_mass_matrix_ = true;
-
-//=============================================================================
 
 void setup_stiffness_matrix(const SurfaceMesh &mesh,
                             Eigen::SparseMatrix<double> &S)
@@ -241,8 +234,6 @@ void setup_polygon_mass_matrix(const Eigen::MatrixXd &polygon,
                        vweights(i) * vweights(j) * ln(n);
 }
 
-//-----------------------------------------------------------------------------
-
 void lump_matrix(SparseMatrix &D)
 {
     std::vector<Triplet> triplets;
@@ -294,8 +285,6 @@ void setup_prolongation_matrix(const SurfaceMesh &mesh, SparseMatrix &A)
     A.setFromTriplets(tripletsA.begin(), tripletsA.end());
 }
 
-//-----------------------------------------------------------------------------
-
 Scalar mesh_area(const SurfaceMesh &mesh)
 {
     Scalar area(0);
@@ -306,15 +295,13 @@ Scalar mesh_area(const SurfaceMesh &mesh)
     return area;
 }
 
-//-----------------------------------------------------------------------------
-
 double face_area(const SurfaceMesh &mesh, Face f)
 {
 #if 0
     // vector area of a polygon
     Normal n(0, 0, 0);
     for (auto h : mesh.halfedges(f))
-        n += cross(mesh.position(mesh.from_vertex(h)), 
+        n += cross(mesh.position(mesh.from_vertex(h)),
                    mesh.position(mesh.to_vertex(h)));
     return 0.5 * norm(n);
 #else
@@ -330,8 +317,6 @@ double face_area(const SurfaceMesh &mesh, Face f)
     return a;
 #endif
 }
-
-//-----------------------------------------------------------------------------
 
 Point area_weighted_centroid(const SurfaceMesh &mesh)
 {
@@ -353,8 +338,6 @@ Point area_weighted_centroid(const SurfaceMesh &mesh)
     }
     return center /= area;
 }
-
-//-----------------------------------------------------------------------------
 
 Eigen::Vector3d gradient_hat_function(const Point &i, const Point &j,
                                       const Point &k)
@@ -378,8 +361,6 @@ Eigen::Vector3d gradient_hat_function(const Point &i, const Point &j,
 
     return gradient;
 }
-
-//-----------------------------------------------------------------------------
 
 void setup_gradient_matrix(const SurfaceMesh &mesh, SparseMatrix &G)
 {
@@ -428,8 +409,6 @@ void setup_gradient_matrix(const SurfaceMesh &mesh, SparseMatrix &G)
     G = G * A;
 }
 
-//-----------------------------------------------------------------------------
-
 void setup_divergence_matrix(const SurfaceMesh &mesh, SparseMatrix &Gt)
 {
     SparseMatrix G, M;
@@ -437,8 +416,6 @@ void setup_divergence_matrix(const SurfaceMesh &mesh, SparseMatrix &Gt)
     setup_gradient_mass_matrix(mesh, M);
     Gt = -G.transpose() * M;
 }
-
-//-----------------------------------------------------------------------------
 
 void setup_gradient_mass_matrix(const SurfaceMesh &mesh,
                                 Eigen::SparseMatrix<double> &M)
@@ -470,8 +447,6 @@ void setup_gradient_mass_matrix(const SurfaceMesh &mesh,
     M.setFromTriplets(triplets.begin(), triplets.end());
 }
 
-//-----------------------------------------------------------------------------
-
 void setup_virtual_vertices(SurfaceMesh &mesh)
 {
     auto area_points = mesh.get_face_property<Point>("f:point");
@@ -497,8 +472,6 @@ void setup_virtual_vertices(SurfaceMesh &mesh)
         area_weights[f] = w;
     }
 }
-
-//-----------------------------------------------------------------------------
 
 void compute_virtual_vertex(const Eigen::MatrixXd &poly,
                             Eigen::VectorXd &weights)
@@ -569,5 +542,3 @@ void compute_virtual_vertex(const Eigen::MatrixXd &poly,
 
     weights = M.completeOrthogonalDecomposition().solve(b_).topRows(val);
 }
-
-//=============================================================================

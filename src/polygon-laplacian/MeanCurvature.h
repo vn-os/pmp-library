@@ -1,17 +1,11 @@
-//=============================================================================
+// Copyright 2020 the Polygon Mesh Processing Library developers.
 // Copyright 2020 Astrid Bunge, Philipp Herholz, Misha Kazhdan, Mario Botsch.
-// Distributed under MIT license, see file LICENSE for details.
-//=============================================================================
+// Distributed under a MIT-style license, see LICENSE.txt for details.
 #pragma once
-//=============================================================================
 
 #include <pmp/SurfaceMesh.h>
 
-//=============================================================================
-
 using namespace pmp;
-
-//=============================================================================
 
 class Curvature
 {
@@ -40,5 +34,3 @@ private:
     SurfaceMesh &mesh_;
     VertexProperty<Scalar> curvatures_;
 };
-
-//=============================================================================

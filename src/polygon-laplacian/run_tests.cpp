@@ -16,8 +16,6 @@ bool LUMP_MASS_MATRIX = true;
 
 using namespace pmp;
 
-//----------------------------------------------------------------------------
-
 // normalize all vertex position to norm=1.
 // used to turn an almost spherical mesh into a spherical mesh.
 void normalize(SurfaceMesh &mesh)
@@ -27,8 +25,6 @@ void normalize(SurfaceMesh &mesh)
         mesh.position(v) = normalize(mesh.position(v));
     }
 }
-
-//----------------------------------------------------------------------------
 
 // compute curvature on a spherical mesh.
 // compare to ground truth, i.e., 1
@@ -48,8 +44,6 @@ void test_curvatures(SurfaceMesh &mesh)
 
     std::cout << "rms error = " << rms << std::endl;
 }
-
-//----------------------------------------------------------------------------
 
 // compute geodesic distances from vertex 0 on a planar mesh.
 // compare to ground truth, i.e., Euclidean distance.
@@ -74,8 +68,6 @@ void test_geodesics(SurfaceMesh &mesh)
     std::cout << "rms error = " << rms << std::endl;
 }
 
-//----------------------------------------------------------------------------
-
 // measure time for constructing stiffness matrix
 void timing_construction(SurfaceMesh mesh)
 {
@@ -94,8 +86,6 @@ void timing_construction(SurfaceMesh mesh)
     std::cout << "stiffness matrix construction: " << t.elapsed() / trials
               << "ms\n";
 }
-
-//----------------------------------------------------------------------------
 
 // measure time for factoring/solving Poisson system
 void timing_solution(SurfaceMesh mesh)
@@ -144,8 +134,6 @@ void timing_solution(SurfaceMesh mesh)
     t.stop();
     std::cout << "back-substitution: " << t.elapsed() / trials << "ms\n";
 }
-
-//----------------------------------------------------------------------------
 
 int main(int argc, char **argv)
 {

@@ -66,8 +66,6 @@ void setup_stiffness_matrix(const SurfaceMesh &mesh,
     S.setFromTriplets(trip.begin(), trip.end());
 }
 
-//----------------------------------------------------------------------------------
-
 void setup_polygon_stiffness_matrix(const Eigen::MatrixXd &polygon,
                                     const Eigen::VectorXd &vweights,
                                     Eigen::MatrixXd &S)
@@ -125,8 +123,6 @@ void setup_polygon_stiffness_matrix(const Eigen::MatrixXd &polygon,
                        vweights(i) * vweights(j) * ln(n);
 }
 
-//----------------------------------------------------------------------------------
-
 void setup_mass_matrix(const SurfaceMesh &mesh, Eigen::SparseMatrix<double> &M)
 {
     const int nv = mesh.n_vertices();
@@ -180,8 +176,6 @@ void setup_mass_matrix(const SurfaceMesh &mesh, Eigen::SparseMatrix<double> &M)
         lump_matrix(M);
     }
 }
-
-//----------------------------------------------------------------------------------
 
 void setup_polygon_mass_matrix(const Eigen::MatrixXd &polygon,
                                const Eigen::VectorXd &vweights,
@@ -250,8 +244,6 @@ void lump_matrix(SparseMatrix &D)
 
     D.setFromTriplets(triplets.begin(), triplets.end());
 }
-
-//----------------------------------------------------------------------------------
 
 void setup_prolongation_matrix(const SurfaceMesh &mesh, SparseMatrix &A)
 {

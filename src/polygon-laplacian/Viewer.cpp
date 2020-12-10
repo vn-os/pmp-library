@@ -23,8 +23,6 @@ bool Viewer::load_mesh(const char *filename)
     return success;
 }
 
-//----------------------------------------------------------------------------
-
 void Viewer::process_imgui()
 {
     // add standard mesh info stuff
@@ -121,8 +119,6 @@ void Viewer::process_imgui()
     }
 }
 
-//----------------------------------------------------------------------------
-
 void Viewer::draw(const std::string &draw_mode)
 {
     // normal mesh draw
@@ -150,8 +146,6 @@ void Viewer::draw(const std::string &draw_mode)
     }
 }
 
-//----------------------------------------------------------------------------
-
 void Viewer::dualize()
 {
     SurfaceMeshGL dual;
@@ -177,15 +171,11 @@ void Viewer::dualize()
     update_mesh();
 }
 
-//----------------------------------------------------------------------------
-
 void Viewer::update_mesh()
 {
     // re-compute face and vertex normals
     mesh_.update_opengl_buffers();
 }
-
-//----------------------------------------------------------------------------
 
 void Viewer::close_holes()
 {
@@ -223,8 +213,6 @@ void Viewer::close_holes()
     update_mesh();
 }
 
-//----------------------------------------------------------------------------
-
 void Viewer::open_holes()
 {
     for (Face f : holes_)
@@ -232,8 +220,6 @@ void Viewer::open_holes()
     mesh_.garbage_collection();
     update_mesh();
 }
-
-//----------------------------------------------------------------------------
 
 void Viewer::mouse(int button, int action, int mods)
 {

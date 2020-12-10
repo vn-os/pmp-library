@@ -4,12 +4,12 @@
 
 #include <pmp/SurfaceMesh.h>
 #include <pmp/algorithms/DifferentialGeometry.h>
+#include "pmp/algorithms/PolyDiffGeo.h"
 #include <pmp/algorithms/SurfaceSubdivision.h>
 #include <pmp/Timer.h>
 
 #include "MeanCurvature.h"
 #include "GeodesicsInHeat.h"
-#include "PolyDiffGeo.h"
 
 // to lump or not to lump the mass matrix?
 bool LUMP_MASS_MATRIX = true;

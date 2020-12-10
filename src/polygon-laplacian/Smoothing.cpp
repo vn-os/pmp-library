@@ -3,7 +3,8 @@
 // Distributed under a MIT-style license, see LICENSE.txt for details.
 
 #include "Smoothing.h"
-#include "PolyDiffGeo.h"
+
+#include "pmp/algorithms/PolyDiffGeo.h"
 
 using SparseMatrix = Eigen::SparseMatrix<double>;
 using Triplet = Eigen::Triplet<double>;

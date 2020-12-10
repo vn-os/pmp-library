@@ -4,11 +4,11 @@
 
 #include "Viewer.h"
 #include "Smoothing.h"
-#include "PolyDiffGeo.h"
 #include "MeanCurvature.h"
 #include "GeodesicsInHeat.h"
 
 #include <pmp/algorithms/DifferentialGeometry.h>
+#include "pmp/algorithms/PolyDiffGeo.h"
 #include <pmp/algorithms/SurfaceSubdivision.h>
 
 #include <imgui.h>

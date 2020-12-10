@@ -7,7 +7,8 @@
 #include <pmp/algorithms/SurfaceTriangulation.h>
 
 using namespace std;
-using namespace pmp;
+
+namespace pmp {
 
 using SparseMatrix = Eigen::SparseMatrix<double>;
 using Triplet = Eigen::Triplet<double>;
@@ -542,3 +543,5 @@ void compute_virtual_vertex(const Eigen::MatrixXd &poly,
 
     weights = M.completeOrthogonalDecomposition().solve(b_).topRows(val);
 }
+
+} // namespace pmp

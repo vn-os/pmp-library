@@ -8,7 +8,7 @@
 #include <Eigen/Sparse>
 #include <pmp/SurfaceMesh.h>
 
-using namespace pmp;
+namespace pmp {
 
 // global setting: whether to clamp cotan negative weights to zero (default: false)
 extern bool clamp_cotan_;
@@ -74,3 +74,5 @@ void setup_virtual_vertices(SurfaceMesh &mesh);
 // compute the affine weights wrt the polygon vertices to form the virtual vertex
 void compute_virtual_vertex(const Eigen::MatrixXd &poly,
                             Eigen::VectorXd &weights);
+
+} // namespace pmp

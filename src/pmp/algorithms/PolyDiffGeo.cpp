@@ -290,14 +290,6 @@ Scalar mesh_area(const SurfaceMesh &mesh)
 
 double face_area(const SurfaceMesh &mesh, Face f)
 {
-#if 0
-    // vector area of a polygon
-    Normal n(0, 0, 0);
-    for (auto h : mesh.halfedges(f))
-        n += cross(mesh.position(mesh.from_vertex(h)),
-                   mesh.position(mesh.to_vertex(h)));
-    return 0.5 * norm(n);
-#else
     double a = 0.0;
     Point C = centroid(mesh, f);
     Point Q, R;
@@ -308,7 +300,6 @@ double face_area(const SurfaceMesh &mesh, Face f)
         a += pmp::triangle_area(C, Q, R);
     }
     return a;
-#endif
 }
 
 Point area_weighted_centroid(const SurfaceMesh &mesh)

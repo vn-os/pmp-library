@@ -8,6 +8,7 @@ This project aims to adhere to [Semantic Versioning](https://semver.org/spec/v2.
 
 ## Unreleased
 
+- Integrate polygon laplacian code
 - Update Eigen to version 3.3.9
 - Update googletest to version 1.10.0
 - Change sign of vec2::perp() to correctly model CCW rotation by 90 degrees.

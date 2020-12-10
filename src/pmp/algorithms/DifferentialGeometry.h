@@ -66,6 +66,8 @@ Point centroid(const SurfaceMesh& mesh, Face f);
 Point centroid(const SurfaceMesh& mesh);
 
 //! \brief Compute dual of a mesh.
+//! \details The vertex positions of the dual mesh are the centroids
+//! of the primal input mesh.
 //! \warning Changes the mesh in place. All properties are cleared.
 void dualize(SurfaceMesh& mesh);
 

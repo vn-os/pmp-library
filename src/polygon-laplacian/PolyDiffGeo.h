@@ -24,7 +24,8 @@ extern bool lump_mass_matrix_;
 //=============================================================================
 
 // compute (sparse) stiffness matrix for polygonal mesh
-void setup_stiffness_matrix(const SurfaceMesh &mesh, Eigen::SparseMatrix<double> &S);
+void setup_stiffness_matrix(const SurfaceMesh &mesh,
+                            Eigen::SparseMatrix<double> &S);
 
 // compute (sparse) mass matrix for polygonal mesh.
 // global variable lump_mass_matrix_ determines whether the mass
@@ -33,7 +34,7 @@ void setup_mass_matrix(const SurfaceMesh &mesh, Eigen::SparseMatrix<double> &M);
 
 // compute (dense) stiffness matrix for one polygon
 void setup_polygon_stiffness_matrix(const Eigen::MatrixXd &polygon,
-                                    const Eigen::VectorXd &vweights, 
+                                    const Eigen::VectorXd &vweights,
                                     Eigen::MatrixXd &L);
 
 // compute (dense) mass matrix for one polygon
@@ -58,10 +59,12 @@ double face_area(const SurfaceMesh &mesh, Face f);
 Scalar mesh_area(const SurfaceMesh &mesh);
 
 // Computes the gradient on a triangle formed by the points i, j and k.
-Eigen::Vector3d gradient_hat_function(const Point& i, const Point& j, const Point& k);
+Eigen::Vector3d gradient_hat_function(const Point &i, const Point &j,
+                                      const Point &k);
 
 // Computes the Gradient matrix for any given mesh.
-void setup_gradient_matrix(const SurfaceMesh &mesh, Eigen::SparseMatrix<double> &G);
+void setup_gradient_matrix(const SurfaceMesh &mesh,
+                           Eigen::SparseMatrix<double> &G);
 
 // Computes the Divergence matrix for any given mesh.
 void setup_divergence_matrix(const SurfaceMesh &mesh,

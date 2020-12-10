@@ -23,7 +23,8 @@ bool lump_mass_matrix_ = true;
 
 //=============================================================================
 
-void setup_stiffness_matrix(const SurfaceMesh &mesh, Eigen::SparseMatrix<double> &S)
+void setup_stiffness_matrix(const SurfaceMesh &mesh,
+                            Eigen::SparseMatrix<double> &S)
 {
     const int nv = mesh.n_vertices();
 
@@ -42,13 +43,13 @@ void setup_stiffness_matrix(const SurfaceMesh &mesh, Eigen::SparseMatrix<double>
         {
             vertices.push_back(v);
         }
-        const int n=vertices.size();
+        const int n = vertices.size();
 
         // collect their positions
         polygon.resize(n, 3);
-        for (int i=0; i<n; ++i)
+        for (int i = 0; i < n; ++i)
         {
-            polygon.row(i) = (Eigen::Vector3d) mesh.position(vertices[i]);
+            polygon.row(i) = (Eigen::Vector3d)mesh.position(vertices[i]);
         }
 
         // compute virtual vertex, setup local stiffness matrix
@@ -56,11 +57,12 @@ void setup_stiffness_matrix(const SurfaceMesh &mesh, Eigen::SparseMatrix<double>
         setup_polygon_stiffness_matrix(polygon, weights, Si);
 
         // assemble to global stiffness matrix
-        for (int j=0; j<n; ++j)
+        for (int j = 0; j < n; ++j)
         {
-            for (int k=0; k<n; ++k)
+            for (int k = 0; k < n; ++k)
             {
-                trip.emplace_back(vertices[k].idx(), vertices[j].idx(), -Si(k, j));
+                trip.emplace_back(vertices[k].idx(), vertices[j].idx(),
+                                  -Si(k, j));
             }
         }
     }
@@ -73,7 +75,7 @@ void setup_stiffness_matrix(const SurfaceMesh &mesh, Eigen::SparseMatrix<double>
 //----------------------------------------------------------------------------------
 
 void setup_polygon_stiffness_matrix(const Eigen::MatrixXd &polygon,
-                                    const Eigen::VectorXd &vweights, 
+                                    const Eigen::VectorXd &vweights,
                                     Eigen::MatrixXd &S)
 {
     const int n = (int)polygon.rows();
@@ -125,7 +127,8 @@ void setup_polygon_stiffness_matrix(const Eigen::MatrixXd &polygon,
     // sandwiching with (local) restriction and prolongation matrix
     for (int j = 0; j < n; ++j)
         for (int i = 0; i < n; ++i)
-            S(i, j) += vweights(i) * ln(j) + vweights(j) * ln(i) + vweights(i) * vweights(j) * ln(n);
+            S(i, j) += vweights(i) * ln(j) + vweights(j) * ln(i) +
+                       vweights(i) * vweights(j) * ln(n);
 }
 
 //----------------------------------------------------------------------------------
@@ -149,13 +152,13 @@ void setup_mass_matrix(const SurfaceMesh &mesh, Eigen::SparseMatrix<double> &M)
         {
             vertices.push_back(v);
         }
-        const int n=vertices.size();
+        const int n = vertices.size();
 
         // collect their positions
         polygon.resize(n, 3);
-        for (int i=0; i<n; ++i)
+        for (int i = 0; i < n; ++i)
         {
-            polygon.row(i) = (Eigen::Vector3d) mesh.position(vertices[i]);
+            polygon.row(i) = (Eigen::Vector3d)mesh.position(vertices[i]);
         }
 
         // compute virtual vertex, setup local mass matrix
@@ -163,11 +166,12 @@ void setup_mass_matrix(const SurfaceMesh &mesh, Eigen::SparseMatrix<double> &M)
         setup_polygon_mass_matrix(polygon, weights, Mi);
 
         // assemble into global mass matrix
-        for (int j=0; j<n; ++j)
+        for (int j = 0; j < n; ++j)
         {
-            for (int k=0; k<n; ++k)
+            for (int k = 0; k < n; ++k)
             {
-                trip.emplace_back(vertices[k].idx(), vertices[j].idx(), Mi(k, j));
+                trip.emplace_back(vertices[k].idx(), vertices[j].idx(),
+                                  Mi(k, j));
             }
         }
     }
@@ -233,7 +237,8 @@ void setup_polygon_mass_matrix(const Eigen::MatrixXd &polygon,
     // sandwiching with (local) restriction and prolongation matrix
     for (int j = 0; j < n; ++j)
         for (int i = 0; i < n; ++i)
-            M(i, j) += vweights(i) * ln(j) + vweights(j) * ln(i) + vweights(i) * vweights(j) * ln(n);
+            M(i, j) += vweights(i) * ln(j) + vweights(j) * ln(i) +
+                       vweights(i) * vweights(j) * ln(n);
 }
 
 //-----------------------------------------------------------------------------
@@ -273,7 +278,7 @@ void setup_prolongation_matrix(const SurfaceMesh &mesh, SparseMatrix &A)
     unsigned int j = 0;
     for (auto f : mesh.faces())
     {
-        const Eigen::VectorXd& w = area_weights[f];
+        const Eigen::VectorXd &w = area_weights[f];
 
         unsigned int i = 0;
         for (auto v : mesh.vertices(f))
@@ -316,7 +321,8 @@ double face_area(const SurfaceMesh &mesh, Face f)
     double a = 0.0;
     Point C = centroid(mesh, f);
     Point Q, R;
-    for (auto h : mesh.halfedges(f)) {
+    for (auto h : mesh.halfedges(f))
+    {
         Q = mesh.position(mesh.from_vertex(h));
         R = mesh.position(mesh.to_vertex(h));
         a += pmp::triangle_area(C, Q, R);
@@ -350,7 +356,8 @@ Point area_weighted_centroid(const SurfaceMesh &mesh)
 
 //-----------------------------------------------------------------------------
 
-Eigen::Vector3d gradient_hat_function(const Point& i, const Point& j, const Point& k)
+Eigen::Vector3d gradient_hat_function(const Point &i, const Point &j,
+                                      const Point &k)
 {
     Point base, site, grad;
     Eigen::Vector3d gradient;
@@ -480,20 +487,21 @@ void setup_virtual_vertices(SurfaceMesh &mesh)
         int i = 0;
         for (Vertex v : mesh.vertices(f))
         {
-            poly.row(i) = (Eigen::Vector3d) mesh.position(v);
+            poly.row(i) = (Eigen::Vector3d)mesh.position(v);
             i++;
         }
 
         compute_virtual_vertex(poly, w);
 
-        area_points[f]  = poly.transpose() * w;
+        area_points[f] = poly.transpose() * w;
         area_weights[f] = w;
     }
 }
 
 //-----------------------------------------------------------------------------
 
-void compute_virtual_vertex(const Eigen::MatrixXd &poly, Eigen::VectorXd &weights)
+void compute_virtual_vertex(const Eigen::MatrixXd &poly,
+                            Eigen::VectorXd &weights)
 {
     int val = poly.rows();
     Eigen::MatrixXd J(val, val);

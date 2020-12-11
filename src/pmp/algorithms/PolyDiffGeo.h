@@ -10,12 +10,6 @@
 
 namespace pmp {
 
-// global setting: whether to clamp cotan negative weights to zero (default: false)
-extern bool clamp_cotan_;
-
-// global settings: whether to lump the mass matrix (default: true)
-extern bool lump_mass_matrix_;
-
 // compute (sparse) stiffness matrix for polygonal mesh
 void setup_stiffness_matrix(const SurfaceMesh &mesh,
                             Eigen::SparseMatrix<double> &S);

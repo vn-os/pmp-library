@@ -11,9 +11,6 @@
 #include "MeanCurvature.h"
 #include "GeodesicsInHeat.h"
 
-// to lump or not to lump the mass matrix?
-bool LUMP_MASS_MATRIX = true;
-
 using namespace pmp;
 
 // normalize all vertex position to norm=1.
@@ -144,10 +141,6 @@ int main(int argc, char **argv)
 
     // counter for tests
     int test = 1;
-
-    // whether or not we lump the mass matrix
-    lump_mass_matrix_ = LUMP_MASS_MATRIX;
-    std::cout << "\nlump mass matrix = " << lump_mass_matrix_ << "\n\n";
 
     // compute mean curvature
     if (!mytest || mytest == test)

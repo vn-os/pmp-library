@@ -92,12 +92,10 @@ void Smoothing::implicit_smoothing(Scalar timestep)
 
 void Smoothing::update_stiffness_matrix()
 {
-    if (mesh_.n_faces() != faces_ || mesh_.n_vertices() != vertices_ ||
-        clamp_ != clamp_cotan_)
+    if (mesh_.n_faces() != faces_ || mesh_.n_vertices() != vertices_)
     {
         vertices_ = mesh_.n_vertices();
         faces_ = mesh_.n_faces();
-        clamp_ = clamp_cotan_;
 
         std::cout << "Stiffness matrix has been updated" << std::endl;
         setup_stiffness_matrix(mesh_, S_);

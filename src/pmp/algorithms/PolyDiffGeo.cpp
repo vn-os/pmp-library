@@ -12,7 +12,11 @@ using SparseMatrix = Eigen::SparseMatrix<double>;
 using Triplet = Eigen::Triplet<double>;
 
 const double eps = 1e-10;
+
+// clamp cotan negative weights to zero
 bool clamp_cotan_ = false;
+
+// lump the mass matrix
 bool lump_mass_matrix_ = true;
 
 void setup_stiffness_matrix(const SurfaceMesh &mesh,

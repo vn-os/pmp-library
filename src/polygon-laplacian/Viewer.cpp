@@ -31,14 +31,6 @@ void Viewer::process_imgui()
     ImGui::Spacing();
     ImGui::Spacing();
 
-    if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen))
-    {
-        ImGui::Checkbox("Clamp cotan", &clamp_cotan_);
-    }
-
-    ImGui::Spacing();
-    ImGui::Spacing();
-
     // turn mesh into non-triangles
     if (ImGui::CollapsingHeader("Polygons!", ImGuiTreeNodeFlags_DefaultOpen))
     {

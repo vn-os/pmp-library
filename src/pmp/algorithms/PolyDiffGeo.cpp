@@ -6,8 +6,6 @@
 #include <pmp/algorithms/DifferentialGeometry.h>
 #include <pmp/algorithms/SurfaceTriangulation.h>
 
-using namespace std;
-
 namespace pmp {
 
 using SparseMatrix = Eigen::SparseMatrix<double>;

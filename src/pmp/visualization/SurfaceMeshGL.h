@@ -63,6 +63,15 @@ public:
     //! set crease angle (in degrees) for visualization of sharp edges
     void set_crease_angle(Scalar ca);
 
+    //! \brief Control usage of color information
+    //! \details Either per-vertex or per-face colors can be used. Vertex colors
+    //! are only used if the mesh has a per-vertex property of type Color
+    //! named \c "v:color". Face colors are only used if the mesh has a per-face
+    //! property of type Color named \c "f:color". If set to false, the
+    //! default front and back colors are used. Default is \c true.
+    //! \note Vertex colors take precedence over face colors.
+    void set_use_colors(bool use_colors) { use_colors_ = use_colors; }
+
     //! draw the mesh
     void draw(const mat4& projection_matrix, const mat4& modelview_matrix,
               const std::string draw_mode);
@@ -140,6 +149,7 @@ private:
     //! OpenGL buffers
     GLuint vertex_array_object_;
     GLuint vertex_buffer_;
+    GLuint color_buffer_;
     GLuint normal_buffer_;
     GLuint tex_coord_buffer_;
     GLuint edge_buffer_;
@@ -150,7 +160,8 @@ private:
     GLsizei n_edges_;
     GLsizei n_triangles_;
     GLsizei n_features_;
-    bool have_texcoords_;
+    bool has_texcoords_;
+    bool has_vertex_colors_;
 
     //! shaders
     Shader phong_shader_;
@@ -160,6 +171,7 @@ private:
     vec3 front_color_, back_color_;
     float ambient_, diffuse_, specular_, shininess_, alpha_;
     bool srgb_;
+    bool use_colors_;
     float crease_angle_;
 
     //! 1D texture for scalar field rendering

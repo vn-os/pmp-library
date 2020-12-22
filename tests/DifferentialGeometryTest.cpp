@@ -62,7 +62,7 @@ TEST_F(DifferentialGeometryTest, voronoi_area_barycentric)
 {
     one_ring();
     Scalar area = voronoi_area_barycentric(mesh, v0);
-    EXPECT_FLOAT_EQ(area, 0.049180791);
+    EXPECT_FLOAT_EQ(area, 0.024590395);
 }
 
 TEST_F(DifferentialGeometryTest, laplace)
@@ -91,6 +91,18 @@ TEST_F(DifferentialGeometryTest, surface_area)
     EXPECT_FLOAT_EQ(area, 12.563956);
 #else
     EXPECT_FLOAT_EQ(area, 12.564044);
+#endif
+}
+
+TEST_F(DifferentialGeometryTest, volume)
+{
+    unit_sphere();
+    auto v = volume(mesh);
+
+#ifdef PMP_SCALAR_TYPE_64
+    EXPECT_FLOAT_EQ(v, 4.18733706);
+#else
+    EXPECT_FLOAT_EQ(v, 4.18731928);
 #endif
 }
 

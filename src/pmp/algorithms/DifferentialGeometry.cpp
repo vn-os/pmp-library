@@ -36,6 +36,27 @@ Scalar surface_area(const SurfaceMesh& mesh)
     return area;
 }
 
+Scalar volume(const SurfaceMesh& mesh)
+{
+    if (!mesh.is_triangle_mesh())
+    {
+        throw InvalidInputException("Input is not a pure triangle mesh!");
+    }
+
+    Scalar volume(0);
+    for (const auto& f : mesh.faces())
+    {
+        auto fv = mesh.vertices(f);
+        const auto& p0 = mesh.position(*fv);
+        const auto& p1 = mesh.position(*(++fv));
+        const auto& p2 = mesh.position(*(++fv));
+
+        volume += Scalar(1.0) / Scalar(6.0) * dot(cross(p0, p1), p2);
+    }
+
+    return std::abs(volume);
+}
+
 Point centroid(const SurfaceMesh& mesh, Face f)
 {
     Point c(0, 0, 0);
@@ -193,7 +214,7 @@ double voronoi_area(const SurfaceMesh& mesh, Vertex v)
                 cotq = dotq / triArea;
                 cotr = dotr / triArea;
 
-                // clamp cot(angle) by clamping angle to [1,179]
+                // clamp cot(angle) by clamping angle to [3, 177]
                 area += 0.125 * (sqrnorm(pr) * clamp_cot(cotq) +
                                  sqrnorm(pq) * clamp_cot(cotr));
             }
@@ -230,7 +251,7 @@ double voronoi_area_barycentric(const SurfaceMesh& mesh, Vertex v)
             pr = mesh.position(mesh.to_vertex(h1));
             pr -= p;
 
-            area += norm(cross(pq, pr)) / 3.0;
+            area += norm(cross(pq, pr)) / 6.0;
         }
     }
 
